@@ -75,7 +75,7 @@ jobs:
 
             git config --global user.name "Github Actions Bot"
             git config --global user.email "actions@github.com"
-            git add app/release-key.jks
+            git add -f app/release-key.jks
             git commit -m "Auto save keystore file, reuse next build"
             git push
           fi
