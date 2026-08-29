@@ -597,7 +597,7 @@ dependencies {
     implementation("com.google.android.filament:filament-utils-android:1.69.2")
     implementation(libs.androidx.ui.graphics.android)
     // The only vendored artifact is the custom FFmpegKit AAR.
-    implementation(files("libs/ffmpeg-kit-local.aar"))
+    // implementation(files("libs/ffmpeg-kit-local.aar")) // FFmpegKit AAR disabled
     implementation("com.arthenica:smart-exception-common:0.2.1")
     implementation("com.arthenica:smart-exception-java:0.2.1")
     implementation(libs.androidx.runtime.android)
