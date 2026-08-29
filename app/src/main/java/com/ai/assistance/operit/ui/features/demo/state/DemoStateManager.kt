@@ -11,7 +11,6 @@ import android.widget.Toast
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import com.ai.assistance.operit.core.tools.system.OperitTerminalManager
-import com.ai.assistance.operit.core.tools.system.RootAuthorizer
 import com.ai.assistance.operit.data.repository.UIHierarchyManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
@@ -49,13 +48,9 @@ class DemoStateManager(private val context: Context, private val coroutineScope:
     // Shizuku state change listeners
     private val shizukuListener: () -> Unit = { refreshStatus() }
 
-    // Root state change listener
-    private val rootListener: () -> Unit = { refreshStatus() }
-
     init {
-        // Register listeners for Shizuku and Root state changes
+        // Register listeners for Shizuku state changes
         ShizukuAuthorizer.addStateChangeListener(shizukuListener)
-        RootAuthorizer.addStateChangeListener(rootListener)
         // 初始化时刷新所有状态
         coroutineScope.launch {
             refreshAllStates()
@@ -76,23 +71,6 @@ class DemoStateManager(private val context: Context, private val coroutineScope:
        coroutineScope.launch {
            refreshStatusAsync()
        }
-    }
-
-    /** Update root status */
-    fun updateRootStatus(isDeviceRooted: Boolean, hasRootAccess: Boolean) {
-        _uiState.update { currentState ->
-            currentState.copy(
-                    isDeviceRooted = mutableStateOf(isDeviceRooted),
-                    hasRootAccess = mutableStateOf(hasRootAccess)
-            )
-        }
-
-        // 如果设备已Root但未获取权限，则显示Root向导
-        if (isDeviceRooted && !hasRootAccess) {
-            _uiState.update { currentState ->
-                currentState.copy(showRootWizard = mutableStateOf(true))
-            }
-        }
     }
 
     /** Update UI state */
@@ -134,12 +112,6 @@ class DemoStateManager(private val context: Context, private val coroutineScope:
         }
     }
 
-    fun toggleRootWizard() {
-        _uiState.update { currentState ->
-            currentState.copy(showRootWizard = mutableStateOf(!currentState.showRootWizard.value))
-        }
-    }
-
     fun toggleAccessibilityWizard() {
         _uiState.update { currentState ->
             currentState.copy(
@@ -178,7 +150,6 @@ class DemoStateManager(private val context: Context, private val coroutineScope:
     fun cleanup() {
         // Remove listeners
         ShizukuAuthorizer.removeStateChangeListener(shizukuListener)
-        RootAuthorizer.removeStateChangeListener(rootListener)
     }
 
     /**
@@ -464,8 +435,6 @@ data class DemoScreenState(
         val hasAccessibilityServiceEnabled: MutableState<Boolean> = mutableStateOf(false),
         val isAccessibilityProviderInstalled: MutableState<Boolean> = mutableStateOf(false),
         val hasLocationPermission: MutableState<Boolean> = mutableStateOf(false),
-        val isDeviceRooted: MutableState<Boolean> = mutableStateOf(false),
-        val hasRootAccess: MutableState<Boolean> = mutableStateOf(false),
 
         // UI states
         val isRefreshing: MutableState<Boolean> = mutableStateOf(false),
@@ -475,7 +444,6 @@ data class DemoScreenState(
         val showAdbCommandExecutor: MutableState<Boolean> = mutableStateOf(false),
         val showShizukuWizard: MutableState<Boolean> = mutableStateOf(false),
         val showOperitTerminalWizard: MutableState<Boolean> = mutableStateOf(false),
-        val showRootWizard: MutableState<Boolean> = mutableStateOf(false),
         val showAccessibilityWizard: MutableState<Boolean> = mutableStateOf(false),
         val showResultDialogState: MutableState<Boolean> = mutableStateOf(false),
 
@@ -511,15 +479,3 @@ fun getOperitTerminalSampleCommands(context: Context) =
                 "ip addr" to context.getString(R.string.demo_cmd_show_network)
         )
 
-// Root命令示例
-fun getRootSampleCommands(context: Context) =
-        listOf(
-                "mount -o rw,remount /system" to context.getString(R.string.demo_cmd_remount_system),
-                "cat /proc/version" to context.getString(R.string.demo_cmd_check_kernel),
-                "ls -la /data" to context.getString(R.string.demo_cmd_list_data_dir),
-                "getenforce" to context.getString(R.string.demo_cmd_check_selinux),
-                "ps -A" to context.getString(R.string.demo_cmd_list_processes),
-                "cat /proc/meminfo" to context.getString(R.string.demo_cmd_check_memory),
-                "pm list features" to context.getString(R.string.demo_cmd_list_features),
-                "dumpsys power" to context.getString(R.string.demo_cmd_check_power)
-        )

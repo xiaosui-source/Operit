@@ -101,8 +101,7 @@ private suspend fun resolveSidebarPermissionStatus(
                                         )
                         }
                 AndroidPermissionLevel.ACCESSIBILITY,
-                AndroidPermissionLevel.ADMIN,
-                AndroidPermissionLevel.ROOT -> {
+                AndroidPermissionLevel.ADMIN -> {
                         val permissionStatus =
                                 ActionListenerFactory.getListener(context, preferredPermissionLevel)
                                         .hasPermission()

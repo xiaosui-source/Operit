@@ -33,7 +33,6 @@ import com.ai.assistance.operit.ui.features.demo.components.*
 import com.ai.assistance.operit.ui.features.demo.viewmodel.ShizukuDemoViewModel
 import com.ai.assistance.operit.ui.features.demo.wizards.AccessibilityWizardCard
 import com.ai.assistance.operit.ui.features.demo.wizards.OperitTerminalWizardCard
-import com.ai.assistance.operit.ui.features.demo.wizards.RootWizardCard
 import com.ai.assistance.operit.ui.features.demo.wizards.ShizukuWizardCard
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -145,8 +144,6 @@ fun ShizukuDemoScreen(
                 isShizukuRunning = uiState.isShizukuRunning.value,
                 hasShizukuPermission = uiState.hasShizukuPermission.value,
                 isOperitTerminalInstalled = uiState.isOperitTerminalInstalled.value,
-                isDeviceRooted = uiState.isDeviceRooted.value,
-                hasRootAccess = uiState.hasRootAccess.value,
                 isAccessibilityProviderInstalled = uiState.isAccessibilityProviderInstalled.value,
                 isAccessibilityUpdateNeeded = isAccessibilityUpdateNeeded,
                 isRefreshing = uiState.isRefreshing.value,
@@ -252,13 +249,6 @@ fun ShizukuDemoScreen(
                     // 点击时总是打开向导
                     viewModel.toggleOperitTerminalWizard()
                 },
-                onRootClick = {
-                    // 处理Root权限
-                    if (currentDisplayedPermissionLevel == AndroidPermissionLevel.ROOT) {
-                        // 如果当前正在浏览ROOT权限级别，则显示或隐藏Root向导
-                        viewModel.toggleRootWizard()
-                    }
-                },
                 onPermissionLevelChange = { level -> currentDisplayedPermissionLevel = level },
                 onPermissionLevelSet = { _ ->
                     // 当设置了新的权限级别时，刷新工具
@@ -293,10 +283,7 @@ fun ShizukuDemoScreen(
                                         uiState.hasShizukuPermission.value &&
                                         isUpdateNeeded))
 
-        val needRootSetupGuide =
-                currentDisplayedPermissionLevel == AndroidPermissionLevel.ROOT &&
-                        (!uiState.hasRootAccess.value)
-    
+
         val needAccessibilitySetupGuide =
             currentDisplayedPermissionLevel == AndroidPermissionLevel.ACCESSIBILITY &&
                     (!uiState.isAccessibilityProviderInstalled.value ||
@@ -304,7 +291,7 @@ fun ShizukuDemoScreen(
                             isAccessibilityUpdateNeeded)
 
 
-        val needSetupGuide = needOperitTerminalSetupGuide || needShizukuSetupGuide || needRootSetupGuide || needAccessibilitySetupGuide
+        val needSetupGuide = needOperitTerminalSetupGuide || needShizukuSetupGuide || needAccessibilitySetupGuide
 
         if (needSetupGuide) {
             Spacer(modifier = Modifier.height(16.dp))
@@ -369,32 +356,6 @@ fun ShizukuDemoScreen(
                 Spacer(modifier = Modifier.height(12.dp))
             }
 
-
-            // Root向导卡片 - 如果当前浏览的是ROOT权限级别且Root未获取
-            if (needRootSetupGuide) {
-                RootWizardCard(
-                        isDeviceRooted = uiState.isDeviceRooted.value,
-                        hasRootAccess = uiState.hasRootAccess.value,
-                        showWizard = uiState.showRootWizard.value,
-                        onToggleWizard = { viewModel.toggleRootWizard() },
-                        onRequestRoot = {
-                            scope.launch(Dispatchers.IO) {
-                                viewModel.requestRootPermission(context)
-                            }
-                        },
-                        onWatchTutorial = {
-                            try {
-                                val videoUrl = "https://magiskmanager.com/"
-                                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(videoUrl))
-                                context.startActivity(intent)
-                            } catch (e: Exception) {
-                                Toast.makeText(context, context.getString(R.string.cannot_open_root_tutorial), Toast.LENGTH_SHORT).show()
-                            }
-                        }
-                )
-
-                Spacer(modifier = Modifier.height(12.dp))
-            }
 
             // Shizuku向导卡片 - 如果正在浏览DEBUGGER权限级别且Shizuku未完全设置则显示
             if (needShizukuSetupGuide) {

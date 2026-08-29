@@ -873,15 +873,6 @@ private fun PermissionLevelPage(
                     isSelected = selectedLevel == AndroidPermissionLevel.DEBUGGER,
                     onClick = { onLevelSelected(AndroidPermissionLevel.DEBUGGER) }
             )
-
-            // Root权限
-            PermissionLevelItem(
-                    level = AndroidPermissionLevel.ROOT,
-                    title = stringResource(R.string.permission_guide_root_title),
-                    description = stringResource(R.string.permission_guide_root_desc),
-                    isSelected = selectedLevel == AndroidPermissionLevel.ROOT,
-                    onClick = { onLevelSelected(AndroidPermissionLevel.ROOT) }
-            )
         }
 
         Spacer(modifier = Modifier.height(32.dp))

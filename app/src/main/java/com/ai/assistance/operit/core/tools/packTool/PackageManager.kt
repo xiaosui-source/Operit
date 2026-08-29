@@ -3213,8 +3213,7 @@ private constructor(private val context: Context, private val aiToolHandler: AIT
 
         val adbOrHigher = when (level) {
             AndroidPermissionLevel.DEBUGGER,
-            AndroidPermissionLevel.ADMIN,
-            AndroidPermissionLevel.ROOT -> true
+            AndroidPermissionLevel.ADMIN -> true
             else -> false
         }
 

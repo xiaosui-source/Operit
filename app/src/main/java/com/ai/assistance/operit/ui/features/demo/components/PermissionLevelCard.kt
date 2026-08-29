@@ -66,8 +66,6 @@ fun PermissionLevelCard(
         isShizukuRunning: Boolean,
         hasShizukuPermission: Boolean,
         isOperitTerminalInstalled: Boolean,
-        isDeviceRooted: Boolean,
-        hasRootAccess: Boolean,
         isAccessibilityProviderInstalled: Boolean, // 新增：提供者App是否已安装
         isAccessibilityUpdateNeeded: Boolean,
         onStoragePermissionClick: () -> Unit,
@@ -78,7 +76,6 @@ fun PermissionLevelCard(
         onLocationPermissionClick: () -> Unit,
         onShizukuClick: () -> Unit,
         onOperitTerminalClick: () -> Unit,
-        onRootClick: () -> Unit,
         isRefreshing: Boolean = false,
         onRefresh: () -> Unit,
         onPermissionLevelChange: (AndroidPermissionLevel) -> Unit = {},
@@ -156,7 +153,6 @@ fun PermissionLevelCard(
                             AndroidPermissionLevel.ACCESSIBILITY -> Icons.Default.Shield
                             AndroidPermissionLevel.ADMIN -> Icons.Default.Shield
                             AndroidPermissionLevel.DEBUGGER -> Icons.Default.Shield
-                            AndroidPermissionLevel.ROOT -> Icons.Default.Lock
                             null -> Icons.Default.Shield // 默认使用标准图标
                         }
 
@@ -400,32 +396,6 @@ fun PermissionLevelCard(
                                             onLocationPermissionClick = onLocationPermissionClick,
                                             onOperitTerminalClick = onOperitTerminalClick,
                                             onShizukuClick = onShizukuClick
-                                    )
-                                }
-                        )
-                    }
-                    AndroidPermissionLevel.ROOT -> {
-                        PermissionSectionContainer(
-                                isActive =
-                                        preferredPermissionLevel.value ==
-                                                AndroidPermissionLevel.ROOT,
-                                isCurrentlyDisplayed = true,
-                                content = {
-                                    RootPermissionSection(
-                                            hasStoragePermission = hasStoragePermission,
-                                            hasOverlayPermission = hasOverlayPermission,
-                                            hasBatteryOptimizationExemption =
-                                                    hasBatteryOptimizationExemption,
-                                            hasLocationPermission = hasLocationPermission,
-                                            isOperitTerminalInstalled = isOperitTerminalInstalled,
-                                            isDeviceRooted = isDeviceRooted,
-                                            hasRootAccess = hasRootAccess,
-                                            onStoragePermissionClick = onStoragePermissionClick,
-                                            onOverlayPermissionClick = onOverlayPermissionClick,
-                                            onBatteryOptimizationClick = onBatteryOptimizationClick,
-                                            onLocationPermissionClick = onLocationPermissionClick,
-                                            onOperitTerminalClick = onOperitTerminalClick,
-                                            onRootClick = onRootClick
                                     )
                                 }
                         )
@@ -1123,149 +1093,6 @@ private fun DebuggerPermissionSection(
     }
 }
 
-@Composable
-private fun RootPermissionSection(
-        hasStoragePermission: Boolean,
-        hasOverlayPermission: Boolean,
-        hasBatteryOptimizationExemption: Boolean,
-        hasLocationPermission: Boolean,
-        isOperitTerminalInstalled: Boolean,
-        isDeviceRooted: Boolean,
-        hasRootAccess: Boolean,
-        onStoragePermissionClick: () -> Unit,
-        onOverlayPermissionClick: () -> Unit,
-        onBatteryOptimizationClick: () -> Unit,
-        onLocationPermissionClick: () -> Unit,
-        onOperitTerminalClick: () -> Unit,
-        onRootClick: () -> Unit
-) {
-    Column {
-        Text(
-                text = stringResource(R.string.root_permission),
-                style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold),
-                modifier = Modifier.padding(bottom = 4.dp)
-        )
-
-        Surface(
-                color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.2f),
-                shape = RoundedCornerShape(8.dp)
-        ) {
-            Column(
-                    modifier = Modifier.padding(8.dp),
-                    verticalArrangement = Arrangement.spacedBy(2.dp)
-            ) {
-                PermissionStatusItem(
-                        title = stringResource(R.string.storage_permission),
-                        isGranted = hasStoragePermission,
-                        onClick = onStoragePermissionClick
-                )
-
-                HorizontalDivider(
-                        thickness = 0.5.dp,
-                        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.1f)
-                )
-
-                PermissionStatusItem(
-                        title = stringResource(R.string.overlay_permission),
-                        isGranted = hasOverlayPermission,
-                        onClick = onOverlayPermissionClick
-                )
-
-                HorizontalDivider(
-                        thickness = 0.5.dp,
-                        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.1f)
-                )
-
-                PermissionStatusItem(
-                        title = stringResource(R.string.battery_optimization),
-                        isGranted = hasBatteryOptimizationExemption,
-                        onClick = onBatteryOptimizationClick
-                )
-
-                HorizontalDivider(
-                        thickness = 0.5.dp,
-                        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.1f)
-                )
-
-                PermissionStatusItem(
-                        title = stringResource(R.string.location_permission),
-                        isGranted = hasLocationPermission,
-                        onClick = onLocationPermissionClick
-                )
-
-                HorizontalDivider(
-                        thickness = 0.5.dp,
-                        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.1f)
-                )
-
-                PermissionStatusItem(
-                        title = stringResource(R.string.operit_terminal),
-                        isGranted = isOperitTerminalInstalled,
-                        onClick = onOperitTerminalClick
-                )
-            }
-        }
-
-        // Root权限额外说明
-        Spacer(modifier = Modifier.height(8.dp))
-
-        Text(
-                text = stringResource(R.string.root_access_permission),
-                style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold),
-                modifier = Modifier.padding(bottom = 4.dp)
-        )
-
-        // Root权限状态
-        Surface(
-                color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.2f),
-                shape = RoundedCornerShape(8.dp)
-        ) {
-            Column(
-                    modifier = Modifier.padding(8.dp),
-                    verticalArrangement = Arrangement.spacedBy(2.dp)
-            ) {
-                PermissionStatusItem(
-                        title = stringResource(R.string.root_access_permission),
-                        isGranted = hasRootAccess,
-                        onClick = onRootClick
-                )
-            }
-        }
-
-        // Root权限额外信息
-        Spacer(modifier = Modifier.height(8.dp))
-
-        Surface(
-                color = MaterialTheme.colorScheme.primary.copy(alpha = 0.08f),
-                shape = RoundedCornerShape(8.dp)
-        ) {
-            Row(
-                    modifier = Modifier.padding(12.dp),
-                    verticalAlignment = Alignment.CenterVertically
-            ) {
-                Icon(
-                        imageVector = Icons.Default.Lock,
-                        contentDescription = null,
-                        tint = MaterialTheme.colorScheme.primary,
-                        modifier = Modifier.size(16.dp)
-                )
-
-                Spacer(modifier = Modifier.width(8.dp))
-
-                Text(
-                        text =
-                                if (hasRootAccess) stringResource(R.string.root_access_granted)
-                                else if (isDeviceRooted)
-                                        stringResource(R.string.device_rooted_request_permission)
-                                else stringResource(R.string.device_not_rooted),
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.primary
-                )
-            }
-        }
-    }
-}
-
 // 获取权限级别的描述
 @Composable
 private fun getPermissionLevelDescription(level: AndroidPermissionLevel): String {
@@ -1278,7 +1105,6 @@ private fun getPermissionLevelDescription(level: AndroidPermissionLevel): String
                 stringResource(id = R.string.permission_level_admin_full_desc)
         AndroidPermissionLevel.DEBUGGER ->
                 stringResource(id = R.string.permission_level_debugger_full_desc)
-        AndroidPermissionLevel.ROOT -> stringResource(id = R.string.permission_level_root_full_desc)
     }
 }
 
@@ -1295,7 +1121,6 @@ private fun PermissionLevelVisualDescription(level: AndroidPermissionLevel) {
                     AndroidPermissionLevel.ADMIN -> stringResource(R.string.permission_level_admin)
                     AndroidPermissionLevel.DEBUGGER ->
                             stringResource(R.string.permission_level_debugger)
-                    AndroidPermissionLevel.ROOT -> stringResource(R.string.permission_level_root)
                     null -> stringResource(R.string.permission_level_standard) // 默认标题
                 }
 
@@ -1317,8 +1142,6 @@ private fun PermissionLevelVisualDescription(level: AndroidPermissionLevel) {
                             stringResource(R.string.permission_level_admin_desc)
                     AndroidPermissionLevel.DEBUGGER ->
                             stringResource(R.string.permission_level_debugger_desc)
-                    AndroidPermissionLevel.ROOT ->
-                            stringResource(R.string.permission_level_root_desc)
                     null -> stringResource(R.string.permission_level_standard_desc) // 默认描述
                 }
 
@@ -1341,17 +1164,16 @@ private fun FeatureGrid(level: AndroidPermissionLevel) {
         // 在这里定义不同权限级别支持的功能
         val features =
                 listOf(
-                        context.getString(R.string.feature_overlay_window) to isFeatureSupported(level, true, true, true, true, true),
-                        context.getString(R.string.feature_file_operations) to isFeatureSupported(level, true, true, true, true, true),
-                        "Android/data" to isFeatureSupported(level, false, false, true, true, true),
-                        "data/data" to isFeatureSupported(level, false, false, false, false, true),
-                        context.getString(R.string.feature_screen_auto_click) to isFeatureSupported(level, false, true, true, true, true),
-                        context.getString(R.string.feature_system_permission_modification) to isFeatureSupported(level, false, false, false, true, true),
-                        context.getString(R.string.feature_termux_support) to isFeatureSupported(level, true, true, true, true, true),
+                        context.getString(R.string.feature_overlay_window) to isFeatureSupported(level, true, true, true, true),
+                        context.getString(R.string.feature_file_operations) to isFeatureSupported(level, true, true, true, true),
+                        "Android/data" to isFeatureSupported(level, false, false, true, true),
+                        "data/data" to isFeatureSupported(level, false, false, false, false),
+                        context.getString(R.string.feature_screen_auto_click) to isFeatureSupported(level, false, true, true, true),
+                        context.getString(R.string.feature_system_permission_modification) to isFeatureSupported(level, false, false, false, true),
+                        context.getString(R.string.feature_termux_support) to isFeatureSupported(level, true, true, true, true),
                         context.getString(R.string.feature_run_js) to
-                                (level == AndroidPermissionLevel.DEBUGGER ||
-                                        level == AndroidPermissionLevel.ROOT),
-                        context.getString(R.string.feature_plugin_market_mcp) to isFeatureSupported(level, true, true, true, true, true)
+                                (level == AndroidPermissionLevel.DEBUGGER),
+                        context.getString(R.string.feature_plugin_market_mcp) to isFeatureSupported(level, true, true, true, true)
                 )
 
         // 每行3个功能项
@@ -1383,7 +1205,6 @@ private fun FeatureGrid(level: AndroidPermissionLevel) {
  * @param inAccessibility 在无障碍权限下是否支持
  * @param inAdmin 在管理员权限下是否支持
  * @param inDebugger 在调试权限下是否支持
- * @param inRoot 在Root权限下是否支持
  * @return 是否支持该功能
  */
 private fun isFeatureSupported(
@@ -1391,15 +1212,13 @@ private fun isFeatureSupported(
         inStandard: Boolean,
         inAccessibility: Boolean,
         inAdmin: Boolean,
-        inDebugger: Boolean,
-        inRoot: Boolean
+        inDebugger: Boolean
 ): Boolean {
     return when (level) {
         AndroidPermissionLevel.STANDARD -> inStandard
         AndroidPermissionLevel.ACCESSIBILITY -> inAccessibility
         AndroidPermissionLevel.ADMIN -> inAdmin
         AndroidPermissionLevel.DEBUGGER -> inDebugger
-        AndroidPermissionLevel.ROOT -> inRoot
         null -> inStandard
     }
 }

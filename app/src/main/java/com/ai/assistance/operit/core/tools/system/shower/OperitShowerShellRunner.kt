@@ -16,7 +16,6 @@ object OperitShowerShellRunner : ShellRunner {
         val appIdentity = when (identity) {
             ShellIdentity.DEFAULT -> AppShellIdentity.DEFAULT
             ShellIdentity.SHELL -> AppShellIdentity.SHELL
-            ShellIdentity.ROOT -> AppShellIdentity.ROOT
         }
 
         val result = AndroidShellExecutor.executeShellCommand(command, appIdentity)

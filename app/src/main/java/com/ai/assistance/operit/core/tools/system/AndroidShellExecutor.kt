@@ -52,7 +52,6 @@ class AndroidShellExecutor {
                 AndroidPermissionLevel.ACCESSIBILITY -> "ACCESSIBILITY"
                 AndroidPermissionLevel.DEBUGGER -> "DEBUGGER"
                 AndroidPermissionLevel.ADMIN -> "ADMIN"
-                AndroidPermissionLevel.ROOT -> "ROOT"
             }
         }
 
@@ -139,6 +138,5 @@ class AndroidShellExecutor {
 enum class ShellIdentity {
     DEFAULT,
     APP,
-    ROOT,
     SHELL
 }

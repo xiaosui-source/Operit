@@ -4,7 +4,6 @@ import android.content.Context
 import com.ai.assistance.operit.core.tools.defaultTool.accessbility.*
 import com.ai.assistance.operit.core.tools.defaultTool.admin.*
 import com.ai.assistance.operit.core.tools.defaultTool.debugger.*
-import com.ai.assistance.operit.core.tools.defaultTool.root.*
 import com.ai.assistance.operit.core.tools.defaultTool.standard.*
 import com.ai.assistance.operit.core.tools.system.AndroidPermissionLevel
 import com.ai.assistance.operit.data.preferences.androidPermissionPreferences
@@ -19,7 +18,6 @@ object ToolGetter {
      */
     fun getFileSystemTools(context: Context): StandardFileSystemTools {
         return when (androidPermissionPreferences.getPreferredPermissionLevel()) {
-            AndroidPermissionLevel.ROOT -> RootFileSystemTools(context)
             AndroidPermissionLevel.ADMIN -> AdminFileSystemTools(context)
             AndroidPermissionLevel.DEBUGGER -> DebuggerFileSystemTools(context)
             AndroidPermissionLevel.ACCESSIBILITY -> AccessibilityFileSystemTools(context)
@@ -44,7 +42,6 @@ object ToolGetter {
      */
     fun getUITools(context: Context): StandardUITools {
         return when (androidPermissionPreferences.getPreferredPermissionLevel()) {
-            AndroidPermissionLevel.ROOT -> RootUITools(context)
             AndroidPermissionLevel.ADMIN -> AdminUITools(context)
             AndroidPermissionLevel.DEBUGGER -> DebuggerUITools(context)
             AndroidPermissionLevel.ACCESSIBILITY -> AccessibilityUITools(context)
@@ -60,7 +57,6 @@ object ToolGetter {
      */
     fun getSystemOperationTools(context: Context): StandardSystemOperationTools {
         return when (androidPermissionPreferences.getPreferredPermissionLevel()) {
-            AndroidPermissionLevel.ROOT -> RootSystemOperationTools(context)
             AndroidPermissionLevel.ADMIN -> AdminSystemOperationTools(context)
             AndroidPermissionLevel.DEBUGGER -> DebuggerSystemOperationTools(context)
             AndroidPermissionLevel.ACCESSIBILITY -> AccessibilitySystemOperationTools(context)
@@ -76,7 +72,6 @@ object ToolGetter {
      */
     fun getDeviceInfoToolExecutor(context: Context): StandardDeviceInfoToolExecutor {
         return when (androidPermissionPreferences.getPreferredPermissionLevel()) {
-            AndroidPermissionLevel.ROOT -> RootDeviceInfoToolExecutor(context)
             AndroidPermissionLevel.ADMIN -> AdminDeviceInfoToolExecutor(context)
             AndroidPermissionLevel.DEBUGGER -> DebuggerDeviceInfoToolExecutor(context)
             AndroidPermissionLevel.ACCESSIBILITY -> AccessibilityDeviceInfoToolExecutor(context)

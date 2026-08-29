@@ -1224,8 +1224,6 @@
     <string name="permission_guide_accessibility_desc">通过无障碍服务实现屏幕内容分析和模拟操作</string>
     <string name="permission_guide_debugger_title">调试权限</string>
     <string name="permission_guide_debugger_desc">通过Shizuku提供ADB级别的系统访问</string>
-    <string name="permission_guide_root_title">Root权限</string>
-    <string name="permission_guide_root_desc">超级用户权限，可执行任意系统操作</string>
     <string name="permission_guide_confirm">确认选择</string>
     <string name="permission_guide_change_anytime">您随时可以在设置中更改权限级别</string>
     
@@ -1245,21 +1243,6 @@
     <string name="wizard_expand">展开</string>
     <string name="wizard_open_docs">官方文档</string>
     
-    <!-- RootWizardCard -->
-    <string name="root_wizard_title">Root权限设置向导</string>
-    <string name="root_wizard_step1">步骤1：Root设备</string>
-    <string name="root_wizard_step2">步骤2：授予Root权限</string>
-    <string name="root_wizard_completed">Root权限已配置完成</string>
-    <string name="root_wizard_success_message">恭喜！Root权限已获取，您现在可以执行需要特权的操作。</string>
-    <string name="root_wizard_test_command">测试Root命令</string>
-    <string name="root_wizard_device_rooted_message">检测到您的设备已Root，但应用尚未获得Root权限。请点击下方按钮向ROOT管理器（如Magisk、SuperSU等）申请权限。</string>
-    <string name="root_wizard_how_to_get_root">如何获取Root权限：</string>
-    <string name="root_wizard_how_to_get_root_steps">1. 点击下方\"请求Root权限\"按钮\n2. 在弹出的ROOT管理器窗口中选择\"允许\"\n3. 如未看到弹窗，请检查ROOT管理器设置</string>
-    <string name="root_wizard_request_permission">请求Root权限</string>
-    <string name="root_wizard_view_tutorial">查看Root教程</string>
-    <string name="root_wizard_device_not_rooted">未检测到您的设备已Root。ROOT需要特定的系统修改，且可能会导致设备保修失效。如需使用ROOT功能，请先完成设备ROOT操作。</string>
-    <string name="root_wizard_risk_notice">注意：Root操作风险提示</string>
-    <string name="root_wizard_risk_details">1. ROOT操作具有一定风险，可能导致设备保修失效\n2. 部分应用可能会拒绝在ROOT设备上运行\n3. 不当的ROOT操作可能导致系统不稳定</string>
     
     <!-- ShizukuWizardCard -->
     <string name="shizuku_wizard_title">Shizuku 设置向导</string>
@@ -1346,7 +1329,6 @@
     <string name="shizuku_demo_update_failed">更新失败: %1$s</string>
     <string name="shizuku_demo_shizuku_not_found">无法找到Shizuku应用</string>
     <string name="shizuku_demo_shizuku_launch_failed">无法启动Shizuku应用</string>
-    <string name="shizuku_demo_root_tutorial_failed">无法打开Root教程链接</string>
     <string name="shizuku_demo_shizuku_permission_granted">Shizuku权限已授予</string>
     <string name="shizuku_demo_shizuku_permission_denied">Shizuku权限请求被拒绝</string>
     <string name="shizuku_demo_termux_install_success">已启动Termux安装，请按照系统提示完成安装</string>
@@ -1370,8 +1352,6 @@
     <string name="admin_permission">管理员权限</string>
     <string name="debug_permission">调试权限</string>
     <string name="shizuku_service">Shizuku服务</string>
-    <string name="root_permission">Root权限</string>
-    <string name="root_access_permission">Root访问权限</string>
     <string name="status_not_installed">未安装</string>
     <string name="status_not_running">未运行</string>
     <string name="status_update_needed">待更新</string>
@@ -1386,22 +1366,15 @@
     <string name="permission_level_accessibility">无障碍权限</string>
     <string name="permission_level_admin">管理员权限</string>
     <string name="permission_level_debugger">调试权限</string>
-    <string name="permission_level_root">Root权限</string>
     <string name="permission_level_standard_desc">基本应用运行权限，无需系统特殊授权</string>
     <string name="permission_level_accessibility_desc">增加了无障碍服务支持，可模拟屏幕操作</string>
     <string name="permission_level_admin_desc">添加设备管理员权限，可访问更多系统功能</string>
     <string name="permission_level_debugger_desc">通过Shizuku提供ADB级别的系统访问</string>
-    <string name="permission_level_root_desc">超级用户权限，可执行任意系统操作</string>
     <string name="permission_level_standard_full_desc">标准权限：基本的应用运行权限，无需特殊权限</string>
     <string name="permission_level_accessibility_full_desc">无障碍权限：允许应用模拟用户操作，需要开启无障碍服务</string>
     <string name="permission_level_admin_full_desc">管理员权限：允许应用访问更多系统功能，如位置服务等</string>
     <string name="permission_level_debugger_full_desc">调试权限：允许通过ADB调试功能进行高级操作，需要Shizuku服务</string>
-    <string name="permission_level_root_full_desc">Root权限：允许应用以超级用户身份运行，需要设备已Root</string>
     
-    <!-- Root 状态信息 -->
-    <string name="root_access_granted">应用已获取Root权限，可执行特权命令</string>
-    <string name="device_rooted_request_permission">设备已Root，点击申请应用权限</string>
-    <string name="device_not_rooted">设备未Root，无法获取Root权限</string>
     
     <!-- Toast 消息 -->
     <string name="toast_download_link_failed">无法打开下载链接</string>
@@ -1781,9 +1754,6 @@
     <string name="message_info_token_cached_short">缓存</string>
     <string name="message_info_unavailable">未记录</string>
     <string name="selected_content_copied">已复制选中内容</string>
-    <string name="requesting_root_permission">正在请求Root权限...</string>
-    <string name="root_permission_granted">Root权限已授予</string>
-    <string name="root_permission_denied">Root权限请求被拒绝</string>
     <string name="command_execution_success">命令执行成功</string>
     <string name="command_execution_failed">命令执行失败</string>
     <string name="please_start_termux_first">请先启动Termux</string>
@@ -1829,7 +1799,6 @@
     <string name="cannot_open_battery_settings">无法打开电池优化设置</string>
     <string name="cannot_open_accessibility_settings">无法打开无障碍服务设置</string>
     <string name="accessibility_provider_installed">服务提供者已安装</string>
-    <string name="cannot_open_root_tutorial">无法打开Root教程链接</string>
     <string name="cannot_find_shizuku_app">无法找到Shizuku应用</string>
     <string name="cannot_launch_shizuku_app">无法启动Shizuku应用</string>
     <string name="cannot_open_docs_link">无法打开文档链接</string>
@@ -2313,9 +2282,6 @@
     <string name="confirmation_code_copied">返回码已复制！</string>
     <string name="message_copied">消息已复制到剪贴板</string>
 
-    <string name="requesting_root">正在请求Root权限...</string>
-    <string name="root_granted">Root权限已授予</string>
-    <string name="root_denied">Root权限请求被拒绝</string>
     <string name="command_failed">命令执行失败</string>
     <string name="start_termux_first">请先启动Termux</string>
     <string name="termux_not_found">无法找到Termux应用</string>
@@ -2329,7 +2295,6 @@
     <string name="shizuku_not_found">无法找到Shizuku应用</string>
     <string name="shizuku_start_failed">无法启动Shizuku应用</string>
     <string name="doc_link_failed">无法打开文档链接</string>
-    <string name="root_tutorial_failed">无法打开Root教程链接</string>
     <string name="file_open_failed">无法打开文件: %1$s</string>
     
     <!-- Snackbar 消息 -->
@@ -2532,7 +2497,6 @@
     <string name="terminal_input_cancel">取消</string>
     <string name="terminal_execution_error">命令执行错误</string>
     <string name="terminal_permission_required">需要权限</string>
-    <string name="terminal_root_access">需要Root权限才能执行此命令</string>
     <string name="terminal_command_not_found">命令未找到</string>
     <string name="terminal_process_running">进程正在运行...</string>
     <string name="terminal_process_completed">进程已完成</string>
@@ -7230,13 +7194,6 @@
 
     <!-- Global Display Settings -->
     <string name="global_display_automation_behavior">自动化显示与行为</string>
-    <string name="root_execution_mode_title">Root 执行模式</string>
-    <string name="root_execution_mode_description">自动模式会按环境选择；手动模式可覆盖自动结果。</string>
-    <string name="root_execution_mode_auto">自动选择</string>
-    <string name="root_execution_mode_force_libsu">手动 Magisk SU</string>
-    <string name="root_execution_mode_force_exec">手动 KernelSU</string>
-    <string name="root_custom_su_command">自定义 su 命令（KernelSU 模式）</string>
-    <string name="root_custom_su_command_description">仅在 KernelSU 模式生效，可填写 su 或 su --mount-master 等命令。</string>
     <string name="global_display_virtual_screen_bitrate">虚拟屏幕码率</string>
     <string name="global_display_status_indicator_style">自动化状态指示样式</string>
     <string name="global_display_screenshot_settings">自动化截图设置</string>
@@ -7448,7 +7405,7 @@
     <string name="apk_zip_align_failed">ZIP对齐失败: %1$s</string>
     <string name="apk_zip_align_path">ZIP对齐路径: %1$s</string>
     <string name="apk_zipalign_not_found">未找到zipalign，请确保Android SDK build-tools配置正确</string>
-    <string name="admin_shell_requires_permission">需要root权限或adb权限</string>
+    <string name="admin_shell_requires_permission">需要设备管理员权限或ADB权限</string>
     <string name="default_option">默认</string>
     <string name="character_card_single_char">单字符</string>
     <string name="character_group_single_char">群</string>
@@ -7762,16 +7719,11 @@
     <string name="exe_editor_change_icon_first">请先调用changeIcon方法设置新图标</string>
     <string name="exe_editor_change_icon_failed">更换EXE图标失败</string>
 
-    <!-- RootAuthorizer -->
-    <string name="root_authorizer_not_initialized">Root执行器未初始化或无Root权限</string>
-    <string name="root_authorizer_execute_error">执行出错: %1$s</string>
 
     <!-- StandardActionListener -->
     <string name="standard_action_listener_started">标准UI操作监听已启动</string>
     <string name="standard_action_listener_start_failed">启动失败: %1$s</string>
 
-    <!-- RootShellExecutor -->
-    <string name="root_shell_error">错误: %1$s</string>
 
     <!-- Graph -->
     <string name="graph_from_node_not_exist">起始节点 \'%1$s\' 不存在</string>
@@ -7839,10 +7791,6 @@
     <string name="shizuku_install_install">安装</string>
     <string name="shizuku_install_unknown">未知</string>
 
-    <!-- RootActionListener -->
-    <string name="root_no_root_permission">设备上没有Root权限</string>
-    <string name="root_check_permission_error">检查Root权限出错: %1$s</string>
-    <string name="root_ui_listener_started">Root UI操作监听已启动</string>
 
     <!-- MCPLocalServer -->
     <string name="mcp_local_auto_detected_server">通过配置文件自动识别的 MCP 服务器</string>

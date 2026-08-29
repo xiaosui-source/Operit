@@ -8,7 +8,6 @@ import android.util.Log
 enum class ShellIdentity {
     DEFAULT,
     SHELL,
-    ROOT,
 }
 
 /**
