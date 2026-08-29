@@ -1,5 +1,8 @@
 name: Android Build Workflow
 
+permissions:
+  contents: write
+
 on:
   push:
     branches: ['*']
