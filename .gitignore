@@ -1,6 +1,6 @@
 *.iml
 *.keystore
-*.jks
+#*.jks
 *.p12
 *.lineage
 .gradle
